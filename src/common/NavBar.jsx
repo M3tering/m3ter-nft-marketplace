@@ -12,7 +12,7 @@ function NavBar(props) {
   const { requireInstall, networkStatus, statusColor, account, connect} =
     useWeb3();
   const short = account
-    ? `${account.substring(0, 5)}...${account.substring(38)}`
+    ? `${account?.substring(0, 5)}...${account?.substring(38)}`
     : "no account";
   return (
     <div style={props.style}>

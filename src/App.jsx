@@ -1,4 +1,4 @@
-import { Route, Routes } from "react-router-dom";
+import { RouterProvider, createBrowserRouter } from "react-router-dom";
 //import AccountSettings from "./pages/AccountSettings";
 //import Collections from "./pages/Collections";
 import Home from "./pages/Home";
@@ -14,31 +14,36 @@ import ProjectDeveloper from "./pages/ProjectDeveloper";*/
 
 
 function App() {
+  let router = createBrowserRouter([{
+    path: "/",
+    element: <Home />
+  }])
   return (
-      <Routes>
-        <Route path="/" element={<Home />} />
-        {/*<Route path="/marketplace" element={<MarketPlace />} />
-        <Route path="/collections" element={<Collections />} />
-        <Route path="/signin" element={<SigninModal />}></Route>
-        <Route
-          path="/account-settings"
-          element={<AccountSettings />}
-        />
-        <Route path="/my-items" element={<MyItems />}></Route>
-        <Route path="/my-collections" element={<MyCollections />} />
-        <Route path="/notifications" element={<Notifications />} />
-        <Route path="/favorites" element={<Favorites />} />
-        <Route path="/signout" element={<SignOut />}></Route>
-        <Route
-          path="/marketplace/single-buy"
-          element={<SingleBuy />}
-        ></Route>
-        <Route
-          path="/project-developer"
-          element={<ProjectDeveloper />}
-  />*/}
-      </Routes>
+    <RouterProvider router={router}  />
   );
 }
 
+{/*<Routes>
+  <Route path="/" element={<Home />} />
+  <Route path="/marketplace" element={<MarketPlace />} />
+  <Route path="/collections" element={<Collections />} />
+  <Route path="/signin" element={<SigninModal />}></Route>
+  <Route
+    path="/account-settings"
+    element={<AccountSettings />}
+  />
+  <Route path="/my-items" element={<MyItems />}></Route>
+  <Route path="/my-collections" element={<MyCollections />} />
+  <Route path="/notifications" element={<Notifications />} />
+  <Route path="/favorites" element={<Favorites />} />
+  <Route path="/signout" element={<SignOut />}></Route>
+  <Route
+    path="/marketplace/single-buy"
+    element={<SingleBuy />}
+  ></Route>
+  <Route
+    path="/project-developer"
+    element={<ProjectDeveloper />}
+/>
+</Routes>*/}
 export default App;
