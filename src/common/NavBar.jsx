@@ -5,7 +5,7 @@ import "../CSS/theme.min.css";
 import navLogo from "../img/Switch/Switch Electric PNG croped.png";
 import Button from "./Button";
 
-import { useWeb3 } from "../Web3/provider";
+import useWeb3  from "../web3/hooks/useWeb3";
 //import { signUp } from "../Web3/Utils/auth";
 
 function NavBar(props) {
