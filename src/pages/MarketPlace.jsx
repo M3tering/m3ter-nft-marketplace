@@ -1,4 +1,4 @@
-import ToolBar from "../components/Toolbar";
+import ToolBar from "../components/ToolBar"
 import FeatureCarousel from "../components/FeatureCarousel";
 import JumboTron from "../components/JumboTron";
 import BaseLayout from "../common/BaseLayout";
