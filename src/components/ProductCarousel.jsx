@@ -1,6 +1,7 @@
 import "../CSS/theme.min.css";
 import MyCard from "../common/MyCard"
 import { Link } from "react-router-dom";
+import banner from "../img/Switch/n4.jpg"
 
 function ProductCarousel() {
   const nums = [1, 2, 3, 4];
@@ -11,7 +12,7 @@ function ProductCarousel() {
         artClass={"card h-100 border-0 shadow"}
         key={num}
         id={num}
-        img={`../img/Switch/n${num}.jpg`}
+        img={banner}
         lg={"../img/Switch/switch.jpg"}
       />
     );

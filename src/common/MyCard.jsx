@@ -60,7 +60,7 @@ function MyCard(props) {
 
 MyCard.propTypes = {
     className: PropTypes.string,
-    id: PropTypes.string,
+    id: PropTypes.number,
     artClass: PropTypes.any,
     img: PropTypes.any,
     lg: PropTypes.any

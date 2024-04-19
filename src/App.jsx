@@ -2,8 +2,8 @@ import { RouterProvider, createBrowserRouter } from "react-router-dom";
 //import AccountSettings from "./pages/AccountSettings";
 //import Collections from "./pages/Collections";
 import Home from "./pages/Home";
-/*import MarketPlace from "./pages/Marketplace";
-import MyCollections from "./JSX/MyCollections";
+import MarketPlace from "./pages/MarketPlace";
+/*import MyCollections from "./JSX/MyCollections";
 import MyItems from "./components/MyItems";
 import Notifications from "./components/Notifications";
 import Favorites from "./components/Favorites";
@@ -17,6 +17,9 @@ function App() {
   let router = createBrowserRouter([{
     path: "/",
     element: <Home />
+  }, {
+    path: "/marketplace",
+    element: <MarketPlace />
   }])
   return (
     <RouterProvider router={router}  />
