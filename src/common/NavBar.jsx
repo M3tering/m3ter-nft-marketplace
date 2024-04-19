@@ -2,11 +2,10 @@ import PropTypes from "prop-types"
 import { Link } from "react-router-dom";
 import "../CSS/styles.css";
 import "../CSS/theme.min.css";
-import navLogo from "../img/Switch/Switch Electric PNG croped.png";
+//import navLogo from "../img/Switch/Switch Electric PNG croped.png";
 import Button from "./Button";
 
 import useWeb3  from "../web3/hooks/useWeb3";
-//import { signUp } from "../Web3/Utils/auth";
 
 function NavBar(props) {
   const { requireInstall, networkStatus, statusColor, account, connect} =
@@ -25,7 +24,7 @@ function NavBar(props) {
             className="navbar-brand d-none d-sm-block me-4 order-lg-1"
             to="/"
           >
-            <img src={navLogo} width="142" alt="Switch" />
+            <img src={"https://ar-io.net/yqorQUGDmMIyJvQALE1jG7Ne7NhoIlGXaGANsz9D6eY"} width="142" alt="Switch" className="switch-logo" />
           </Link>
           <Link className="navbar-brand d-sm-none me-2 order-lg-1" to="/">
             <img
@@ -131,7 +130,7 @@ function NavBar(props) {
                   Marketplace
                 </Link>
               </li>
-              <li className="nav-item">
+              {/*<li className="nav-item">
                 <Link
                   className={`nav-link ${props.classid}`}
                   to="/collections"
@@ -143,7 +142,7 @@ function NavBar(props) {
                 <a className="nav-link" href="https://github.com/WhyNotSwitch/Whitepaper/raw/master/litepaper/SwitchElectric_ProjectTokenization_Litepaper.pdf">
                   Whitepaper
                 </a>
-              </li>
+              </li>*/}
             </ul>
           </div>
         </div>
