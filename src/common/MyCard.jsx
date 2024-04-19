@@ -1,4 +1,5 @@
 import PropTypes from "prop-types"
+import { M3terHead } from "m3ters"
 import { Link } from "react-router-dom";
 import Button from "./Button";
 
@@ -8,7 +9,8 @@ function MyCard(props) {
       <article className={props.artClass}>
         <div className="card-img-top position-relative overflow-hidden">
           <Link className="d-block" to="/marketplace/single-buy">
-            <img src={props.img} alt="Product" />
+            {/*<img src={props.img} alt="Product" />*/}
+            <M3terHead seed={props.img} size={200} />
           </Link>
           {/* <!-- Wishlist button--> */}
           <Button

@@ -2,7 +2,6 @@ import "../CSS/theme.min.css";
 import "../CSS/styles.css";
 import { Link } from "react-router-dom";
 import MyCard from "../common/MyCard";
-import banner from "../img/Switch/n3.jpg"
 import switchimg from "../img/Switch/switch.jpg"
 
 function RecentDrops() {
@@ -14,7 +13,7 @@ function RecentDrops() {
         artClass={"card h-100 border-0 shadow"}
         key={num}
         id={num}
-        img={banner}
+        img={`image_${num}`}
         lg={switchimg}
       />
     );
