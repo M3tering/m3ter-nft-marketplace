@@ -3,13 +3,13 @@ import { RouterProvider, createBrowserRouter } from "react-router-dom";
 //import Collections from "./pages/Collections";
 import Home from "./pages/Home";
 import MarketPlace from "./pages/MarketPlace";
+import SingleBuy from "./pages/SingleBuy";
 /*import MyCollections from "./JSX/MyCollections";
 import MyItems from "./components/MyItems";
 import Notifications from "./components/Notifications";
 import Favorites from "./components/Favorites";
 import SigninModal from "./pages/SigninModal";
 import SignOut from "./pages/SignOut";
-import SingleBuy from "./pages/SingleBuy";
 import ProjectDeveloper from "./pages/ProjectDeveloper";*/
 
 
@@ -20,7 +20,13 @@ function App() {
   }, {
     path: "/marketplace",
     element: <MarketPlace />
-  }])
+  },{
+    path: "/marketplace/single-buy",
+    element: <SingleBuy />
+  }
+])
+
+
   return (
     <RouterProvider router={router}  />
   );
