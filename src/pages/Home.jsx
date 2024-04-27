@@ -2,7 +2,7 @@ import BaseLayout from "../common/BaseLayout";
 import Banner from "../components/Banner";
 import FeatureCarousel from "../components/FeatureCarousel";
 import Hero from "../components/Hero";
-import ProductCarousel from "../components/ProductCarousel";
+//import ProductCarousel from "../components/ProductCarousel";
 import RecentDrops from "../components/RecentDrops";
 import TopCreators from "../components/TopCreators";
 import Blog from "../components/Blog"
@@ -22,7 +22,7 @@ function Home() {
           {/* <!-- Product carousel (Recent Drops)--> */}
           <RecentDrops />
           {/* <!-- Product carousel (Trending in)--> */}
-          <ProductCarousel />
+          {/*<ProductCarousel />*/}
           {/* <!-- Top Creators--> */}
           <TopCreators />
           {/* <!-- Mobile app--> */}

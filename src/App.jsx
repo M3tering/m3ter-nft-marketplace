@@ -4,11 +4,14 @@ import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import Home from "./pages/Home";
 import MarketPlace from "./pages/MarketPlace";
 import SingleBuy from "./pages/SingleBuy";
-/*import MyCollections from "./JSX/MyCollections";
+import SigninModal from "./pages/SigninModal";
 import MyItems from "./components/MyItems";
+import useWeb3 from "./web3/hooks/useWeb3";
+import Web3Context from "./contexts/Web3Context";
+import ListModal from "./pages/ListModal";
+/*import MyCollections from "./JSX/MyCollections";
 import Notifications from "./components/Notifications";
 import Favorites from "./components/Favorites";
-import SigninModal from "./pages/SigninModal";
 import SignOut from "./pages/SignOut";
 import ProjectDeveloper from "./pages/ProjectDeveloper";*/
 
@@ -23,19 +26,33 @@ function App() {
   },{
     path: "/marketplace/single-buy",
     element: <SingleBuy />
+  },{
+    path: "/account",
+    element: <SigninModal />
+  },{
+    path: "/new-meter",
+    element: <ListModal />
+  },{
+    path: "/my-items",
+    element: <MyItems />
   }
 ])
 
+let web3 = useWeb3()
 
-  return (
-    <RouterProvider router={router}  />
+
+
+return (
+  <Web3Context.Provider value={web3}>
+      <RouterProvider router={router}  />
+  </Web3Context.Provider>
   );
 }
 
 {/*<Routes>
-  <Route path="/" element={<Home />} />
-  <Route path="/marketplace" element={<MarketPlace />} />
-  <Route path="/collections" element={<Collections />} />
+<Route path="/" element={<Home />} />
+<Route path="/marketplace" element={<MarketPlace />} />
+<Route path="/collections" element={<Collections />} />
   <Route path="/signin" element={<SigninModal />}></Route>
   <Route
     path="/account-settings"

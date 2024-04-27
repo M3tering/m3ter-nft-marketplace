@@ -1,7 +1,7 @@
-import { useState } from "react";
+import propTypes from "prop-types"
+import { useContext, useState } from "react";
 import "../CSS/styles.css";
 import MyCard from "../common/MyCard";
-import Nft6 from "../img/Switch/n6.jpg";
 import Avatar13 from "../img/nft/catalog/avatars/13.png";
 import SwitchLg from "../img/Switch/switch.jpg";
 import { Link } from "react-router-dom";
@@ -10,9 +10,18 @@ import Asset from "./Asset";
 import Revenue from "./Revenue";
 import Details from "./Details";
 import Provenance from "./Provenance";
+import { M3terHead } from "m3ters";
+import Loader from "../components/Loader"
+import useListings from "../web3/hooks/useListings"
+import Web3Context from "../contexts/Web3Context";
 //import Example from "../JSX/OrderModal"
 
-function SinglebuyBody() {
+function SinglebuyBody({meter, index}) {
+  const { account, connectWallet } = useContext(Web3Context)
+  const {purchaseMeter, listingsLoading, listingsStatus} = useListings()
+  let formattedPrice = Number(meter?.price)
+  let formattedPriceEth = formattedPrice / 10**18;
+
   const nums = [11, 12, 15, 16];
   const CardElement = nums.map((num) => {
     return (
@@ -26,6 +35,8 @@ function SinglebuyBody() {
       />
     );
   });
+
+  console.log(typeof meter)
   const [activeTab, setActiveTab] = useState("metadata");
   const theTab = function () {
     if (activeTab === "metadata") return <MetaData />;
@@ -49,6 +60,10 @@ function SinglebuyBody() {
         return "provenance";
       } else return { ...PreActiveTab };
     });
+  }
+
+  function handlePurchase(){
+    purchaseMeter(meter?.price, index)
   }
 
   return (
@@ -87,204 +102,222 @@ function SinglebuyBody() {
         {/* <!-- Product--> */}
         <div className="bg-light shadow-lg rounded-3 px-4 py-lg-4 py-3 mb-5">
           <div className="py-lg-3 py-2 px-lg-3">
-            <div className="row">
-              {/* <!-- Product image--> */}
-              <div className="col-lg-6">
-                <div className="position-relative rounded-3 overflow-hidden mb-lg-4 mb-2">
-                  <img className="image-zoom" src={Nft6} alt="Product" />
-                  <div className="image-zoom-pane"></div>
-                </div>
-                <div className="pt-2 text-lg-start text-center">
-                  <button
-                    className="btn btn-secondary rounded-pill btn-icon me-sm-3 me-2"
-                    type="button"
-                    data-bs-toggle="tooltip"
-                    data-bs-placement="top"
-                    title="Add to Favorites"
-                  >
-                    <i className="ci-heart"></i>
-                  </button>
-                  <button
-                    className="btn btn-secondary rounded-pill btn-icon me-sm-3 me-2"
-                    type="button"
-                    data-bs-toggle="tooltip"
-                    data-bs-placement="top"
-                    title="Share"
-                  >
-                    <i className="ci-share-alt"></i>
-                  </button>
-                  <button
-                    className="btn btn-secondary rounded-pill btn-icon me-sm-3 me-2"
-                    type="button"
-                    data-bs-toggle="tooltip"
-                    data-bs-placement="top"
-                    title="Flag"
-                  >
-                    <i className="ci-flag"></i>
-                  </button>
-                </div>
-              </div>
-              {/* <!-- Product details--> */}
-              <div className="col-lg-6">
-                <div className="ps-xl-5 ps-lg-3">
-                  {/* <!-- Meta--> */}
-                  <h2 className="h3 mb-3">Switch Project 6</h2>
-                  <div className="d-flex align-items-center flex-wrap text-nowrap mb-sm-4 mb-3 fs-sm">
-                    <div className="mb-2 me-sm-3 me-2 text-muted">
-                      Minted on Oct 17, 2022
-                    </div>
-                    <div className="mb-2 me-sm-3 me-2 ps-sm-3 ps-2 border-start text-muted">
-                      <i className="ci-eye me-1 fs-base mt-n1 align-middle"></i>
-                      15 views
-                    </div>
-                    <div className="mb-2 me-sm-3 me-2 ps-sm-3 ps-2 border-start text-muted">
-                      <i className="ci-heart me-1 fs-base mt-n1 align-middle"></i>
-                      4 favorite
-                    </div>
+            {
+              listingsLoading
+              ?
+              <div> <Loader color="blue" /> </div>
+              :
+              listingsStatus.error
+              ?
+              <div> {listingsStatus.message} </div>
+              :
+              <div className="row">
+                {/* <!-- Product image--> */}
+                <div className="col-lg-6">
+                  <div className="position-relative rounded-3 overflow-hidden mb-lg-4 mb-2">
+                    <M3terHead seed={meter?.tokenId} />
+                    <div className="image-zoom-pane"></div>
                   </div>
-                  <div className="row row-cols-sm-3 row-cols-1 gy-3 gx-4 mb-4 pb-md-2">
-                    {/* <!-- Current price--> */}
-                    <div className="col">
-                      <div className="pb-md-2">
-                        <h3 className="h6 mb-2 fs-sm text-muted">
-                          Current price
-                        </h3>
-                        <h2 className="h3 mb-1">2.80 ETH</h2>
-                        <span className="fs-sm text-muted">(≈ $ 795.48)</span>
-                      </div>
-                    </div>
-                    {/* <!-- Creator--> */}
-                    <div className="col">
-                      <div className="card position-relative h-100">
-                        <div className="card-body p-3">
-                          <h3 className="h6 mb-2 fs-sm text-muted">
-                            Project Developer
-                          </h3>
-                          <div className="d-flex align-items-center">
-                            <img
-                              className="rounded-circle me-2"
-                              src={SwitchLg}
-                              width="32"
-                              alt="Avatar"
-                            />
-                            <Link
-                              className="nav-link-style stretched-link fs-sm"
-                              to="project-developer"
-                            >
-                              Switch Electric
-                            </Link>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    {/* <!-- Collection--> */}
-                    <div className="col">
-                      <div className="card position-relative h-100">
-                        <div className="card-body p-3">
-                          <h3 className="h6 mb-2 fs-sm text-muted">
-                            Project Location
-                          </h3>
-                          <div className="d-flex align-items-center">
-                            <img
-                              className="rounded-circle me-2"
-                              src={Avatar13}
-                              width="32"
-                              alt="Avatar"
-                            />
-                            <Link
-                              className="nav-link-style stretched-link fs-sm"
-                              to="single-buy"
-                            >
-                              Enugu, Nigeria
-                            </Link>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="col">
-                    <Link
-                      className="btn btn-lg btn-accent d-block w-100"
-                      to="single-buy"
+                  <div className="pt-2 text-lg-start text-center">
+                    <button
+                      className="btn btn-secondary rounded-pill btn-icon me-sm-3 me-2"
+                      type="button"
+                      data-bs-toggle="tooltip"
+                      data-bs-placement="top"
+                      title="Add to Favorites"
                     >
-                      Purchase NFT
-                    </Link>
+                      <i className="ci-heart"></i>
+                    </button>
+                    <button
+                      className="btn btn-secondary rounded-pill btn-icon me-sm-3 me-2"
+                      type="button"
+                      data-bs-toggle="tooltip"
+                      data-bs-placement="top"
+                      title="Share"
+                    >
+                      <i className="ci-share-alt"></i>
+                    </button>
+                    <button
+                      className="btn btn-secondary rounded-pill btn-icon me-sm-3 me-2"
+                      type="button"
+                      data-bs-toggle="tooltip"
+                      data-bs-placement="top"
+                      title="Flag"
+                    >
+                      <i className="ci-flag"></i>
+                    </button>
                   </div>
-                  {/* <!-- Product info--> */}
-                  <div className="pt-3">
-                    {/* <!-- Nav tabs--> */}
-                    <div className="mb-3" style={{ overflowX: "auto" }}>
-                      <ul
-                        className="nav nav-tabs nav-fill flex-nowrap text-nowrap mb-1"
-                        role="tablist"
+                </div>
+                {/* <!-- Product details--> */}
+                <div className="col-lg-6">
+                  <div className="ps-xl-5 ps-lg-3">
+                    {/* <!-- Meta--> */}
+                    <h2 className="h3 mb-3">M3TER {Number(meter?.tokenId)}</h2>
+                    <div className="d-flex align-items-center flex-wrap text-nowrap mb-sm-4 mb-3 fs-sm">
+                      <div className="mb-2 me-sm-3 me-2 text-muted">
+                        Minted on Oct 17, 2022
+                      </div>
+                      <div className="mb-2 me-sm-3 me-2 ps-sm-3 ps-2 border-start text-muted">
+                        <i className="ci-eye me-1 fs-base mt-n1 align-middle"></i>
+                        15 views
+                      </div>
+                      <div className="mb-2 me-sm-3 me-2 ps-sm-3 ps-2 border-start text-muted">
+                        <i className="ci-heart me-1 fs-base mt-n1 align-middle"></i>
+                        4 favorite
+                      </div>
+                    </div>
+                    <div className="row row-cols-sm-3 row-cols-1 gy-3 gx-4 mb-4 pb-md-2">
+                      {/* <!-- Current price--> */}
+                      <div className="col">
+                        <div className="pb-md-2">
+                          <h3 className="h6 mb-2 fs-sm text-muted">
+                            Current price
+                          </h3>
+                          <h2 className="h3 mb-1">{formattedPriceEth} SETH</h2>
+                          <span className="fs-sm text-muted">(≈ $ 795.48)</span>
+                        </div>
+                      </div>
+                      {/* <!-- Creator--> */}
+                      <div className="col">
+                        <div className="card position-relative h-100">
+                          <div className="card-body p-3">
+                            <h3 className="h6 mb-2 fs-sm text-muted">
+                              Project Developer
+                            </h3>
+                            <div className="d-flex align-items-center">
+                              <img
+                                className="rounded-circle me-2"
+                                src={SwitchLg}
+                                width="32"
+                                alt="Avatar"
+                              />
+                              <Link
+                                className="nav-link-style stretched-link fs-sm"
+                                to="project-developer"
+                              >
+                                {meter?.owner.slice(0, 3)}...{meter?.owner.slice(meter?.owner.length - 4)}
+                              </Link>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      {/* <!-- Collection--> */}
+                      <div className="col">
+                        <div className="card position-relative h-100">
+                          <div className="card-body p-3">
+                            <h3 className="h6 mb-2 fs-sm text-muted">
+                              Project Location
+                            </h3>
+                            <div className="d-flex align-items-center">
+                              <img
+                                className="rounded-circle me-2"
+                                src={Avatar13}
+                                width="32"
+                                alt="Avatar"
+                              />
+                              <Link
+                                className="nav-link-style stretched-link fs-sm"
+                                to="single-buy"
+                              >
+                                Enugu, Nigeria
+                              </Link>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="col">
+                      {
+                        account
+                        ?
+                        <button
+                          className="btn btn-lg btn-accent d-block w-100"
+                          onClick={handlePurchase}
+                        >
+                          Purchase NFT
+                        </button>
+                        :
+                        <button className="btn btn-lg btn-accent d-block w-100" onClick={connectWallet}>
+                          Connect wallet
+                        </button>
+                      }
+                    </div>
+                    {/* <!-- Product info--> */}
+                    <div className="pt-3">
+                      {/* <!-- Nav tabs--> */}
+                      <div className="mb-3" style={{ overflowX: "auto" }}>
+                        <ul
+                          className="nav nav-tabs nav-fill flex-nowrap text-nowrap mb-1"
+                          role="tablist"
+                        >
+                          <li className="nav-item">
+                            <div
+                              id="metadata"
+                              className="nav-link "
+                              onClick={() => handleClick({ myTab: 1 })}
+                              data-bs-toggle="tab"
+                              role="tab"
+                            >
+                              Metadata
+                            </div>
+                          </li>
+                          <li className="nav-item">
+                            <div
+                              id="asset"
+                              className="nav-link"
+                              onClick={() => handleClick({ myTab: 2 })}
+                              data-bs-toggle="tab"
+                              role="tab"
+                            >
+                              Asset
+                            </div>
+                          </li>
+                          <li className="nav-item">
+                            <div
+                              id="revenues"
+                              className="nav-link"
+                              onClick={() => handleClick({ myTab: 3 })}
+                              data-bs-toggle="tab"
+                              role="tab"
+                            >
+                              Revenues
+                            </div>
+                          </li>
+                          <li className="nav-item">
+                            <div
+                              onClick={() => handleClick({ myTab: 4 })}
+                              id="details"
+                              className="nav-link"
+                              data-bs-toggle="tab"
+                              role="tab"
+                            >
+                              Details
+                            </div>
+                          </li>
+                          <li className="nav-item">
+                            <div
+                              id="provenance"
+                              className="nav-link"
+                              onClick={() => handleClick({ myTab: 5 })}
+                              data-bs-toggle="tab"
+                              role="tab"
+                            >
+                              Provenance
+                            </div>
+                          </li>
+                        </ul>
+                      </div>
+                      {/* <!-- Tabs content--> */}
+                      <div
+                        className="tab-pane fade show active"
+                        id="properties"
+                        role="tabpanel"
                       >
-                        <li className="nav-item">
-                          <div
-                            id="metadata"
-                            className="nav-link "
-                            onClick={() => handleClick({ myTab: 1 })}
-                            data-bs-toggle="tab"
-                            role="tab"
-                          >
-                            Metadata
-                          </div>
-                        </li>
-                        <li className="nav-item">
-                          <div
-                            id="asset"
-                            className="nav-link"
-                            onClick={() => handleClick({ myTab: 2 })}
-                            data-bs-toggle="tab"
-                            role="tab"
-                          >
-                            Asset
-                          </div>
-                        </li>
-                        <li className="nav-item">
-                          <div
-                            id="revenues"
-                            className="nav-link"
-                            onClick={() => handleClick({ myTab: 3 })}
-                            data-bs-toggle="tab"
-                            role="tab"
-                          >
-                            Revenues
-                          </div>
-                        </li>
-                        <li className="nav-item">
-                          <div
-                            onClick={() => handleClick({ myTab: 4 })}
-                            id="details"
-                            className="nav-link"
-                            data-bs-toggle="tab"
-                            role="tab"
-                          >
-                            Details
-                          </div>
-                        </li>
-                        <li className="nav-item">
-                          <div
-                            id="provenance"
-                            className="nav-link"
-                            onClick={() => handleClick({ myTab: 5 })}
-                            data-bs-toggle="tab"
-                            role="tab"
-                          >
-                            Provenance
-                          </div>
-                        </li>
-                      </ul>
-                    </div>
-                    {/* <!-- Tabs content--> */}
-                    <div
-                      className="tab-pane fade show active"
-                      id="properties"
-                      role="tabpanel"
-                    >
-                      <div className="row ">
-                        <div className="card">
-                          <div className="card-body">
-                            <div className="tab-content">{theTab()}</div>
+                        <div className="row ">
+                          <div className="card">
+                            <div className="card-body">
+                              <div className="tab-content">{theTab()}</div>
+                            </div>
                           </div>
                         </div>
                       </div>
@@ -292,7 +325,7 @@ function SinglebuyBody() {
                   </div>
                 </div>
               </div>
-            </div>
+            }
           </div>
         </div>
       </section>
@@ -319,6 +352,11 @@ function SinglebuyBody() {
       </section>
     </div>
   );
+}
+
+SinglebuyBody.propTypes = {
+  meter: propTypes.object.isRequired,
+  index: propTypes.number.isRequired
 }
 
 export default SinglebuyBody;

@@ -48,6 +48,11 @@
   display: flex;
   justify-content: space-between;
 }
+.connect-wallet-page {
+  text-align: center;
+  padding: 30px;
+  min-height: 20vh;
+}
 #overlay-span {
   background-image: conic-gradient(
     from 207.95deg at 50% 50%,

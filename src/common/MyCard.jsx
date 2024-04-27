@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import Button from "./Button";
 
 function MyCard(props) {
+  let convertedPrice = Number(props.price) / 10**18
   return (
     <div className={props.className}>
       <article className={props.artClass}>
@@ -28,14 +29,14 @@ function MyCard(props) {
           <h3 className="product-title mb-2 fs-base">
             <Link
               className="d-block text-truncate"
-              to="/marketplace/single-buy"
+              to={`/marketplace/single-buy?id=${props.id}`}
             >
-              {`Switch Project ${props.id}`}
+              {`M3TER ${props.id}`}
             </Link>
           </h3>
           <span className="fs-sm text-muted">Reserve price:</span>
           <div className="d-flex align-items-center flex-wrap">
-            <h4 className="mt-1 mb-0 fs-base text-darker">0.6 ETH</h4>
+            <h4 className="mt-1 mb-0 fs-base text-darker">{convertedPrice} SETH</h4>
             <span className="mt-1 ms-1 fs-xs text-muted">(≈ $ 2,400.65)</span>
           </div>
         </div>
@@ -51,7 +52,7 @@ function MyCard(props) {
               className="nav-link-style fs-sm stretched-link"
               to="/project-developer"
             >
-              @Switch Electric
+              {props?.owner?.slice(0, 4)}...{props?.owner?.slice(props?.owner.length - 4)}
             </Link>
           </div>
         </div>
@@ -65,6 +66,8 @@ MyCard.propTypes = {
     id: PropTypes.number,
     artClass: PropTypes.any,
     img: PropTypes.any,
+    price: PropTypes.any,
+    owner: PropTypes.string,
     lg: PropTypes.any
 }
 

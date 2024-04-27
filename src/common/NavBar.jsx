@@ -5,11 +5,11 @@ import "../CSS/theme.min.css";
 //import navLogo from "../img/Switch/Switch Electric PNG croped.png";
 import Button from "./Button";
 
-import useWeb3  from "../web3/hooks/useWeb3";
+import { useContext } from "react";
+import Web3Context from "../contexts/Web3Context";
 
 function NavBar(props) {
-  const { requireInstall, networkStatus, statusColor, account, connect} =
-    useWeb3();
+  const { requireInstall, account, networkStatus, connectWallet} = useContext(Web3Context)
   const short = account
     ? `${account?.substring(0, 5)}...${account?.substring(38)}`
     : "no account";
@@ -58,7 +58,7 @@ function NavBar(props) {
             </a>
             <Link
               className="navbar-tool ms-lg-2"
-              to="/signin"
+              to="/account"
               data-bs-toggle="modal"
             >
               <span className="navbar-tool-tooltip">Account</span>
@@ -75,7 +75,6 @@ function NavBar(props) {
                     //onClick={() =>signUp(web3, account)}
                     style={{
                       alignSelf: "center",
-                      color: statusColor,
                     }}
                   >
                     {networkStatus}
@@ -93,7 +92,7 @@ function NavBar(props) {
               </Link>
             ) : (
               <Link
-                onClick={connect}
+                onClick={connectWallet}
                 className="btn btn-sm btn-accent rounded-1 ms-lg-4 ms-2"
               >
                 Connect Metamask
