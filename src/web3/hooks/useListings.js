@@ -10,9 +10,18 @@ export default function useListings(){
     let {listingContract, meterContract} = useContracts()
     const {signer} = useContext(Web3Context)
 
+    const defaultStatus = {error: false, success: false, message: ""}
+
     let [listings, setListings] = useState([])
+    let [revenue, setRevenue] = useState(null);
+
     let [listingsLoading, setListingsLoading] = useState(false)
-    let [listingsStatus, setListingsStatus] = useState({error: false, success: false, message: ""})
+    let [revenueLoading, setRevenueLoading] = useState(false);
+    
+    let [revenueStatus, setRevenueStatus] = useState(defaultStatus)
+    let [listingsStatus, setListingsStatus] = useState(defaultStatus)
+
+    
 
 
     async function purchaseMeter(price, index){
@@ -62,8 +71,40 @@ export default function useListings(){
         setListingsLoading(false)
     }
 
-    function resetListingsStatus(error=false, success=false, msg=""){
-        setListingsStatus({error: error, success: success, message: msg})
+    async function fetchRevenue(owner_address){
+        setRevenueLoading(true)
+        try{
+            let revenue = await listingContract?.revenueOf(owner_address)
+            console.log(revenue)
+            setRevenue(Number(revenue) / 10**18)
+            setRevenueLoading(false)
+        }catch(err){
+            console.log(err)
+            setRevenueStatus({error: true, success: false, message: err.errorName || err.message})
+            setRevenueLoading(false)
+        }
+    }
+
+    async function claimRevenue(){
+        setRevenueLoading(true)
+        try{
+            let listingContractWithSigner = await listingContract.connect(signer)
+            let result = await listingContractWithSigner.withdrawRevenue()
+            console.log(result);
+            setRevenueLoading(false)
+        }catch(err){
+            console.log(err.errorName, err.message)
+            setRevenueStatus({error: true, success: false, message: err.errorName || err.message})
+            setRevenueLoading(false)
+        }
+    }
+
+    function resetListingsStatus(){
+        setListingsStatus(defaultStatus)
+    }
+
+    function resetRevenueStatus(){
+        setRevenueStatus(defaultStatus)
     }
 
     useEffect(()=>{
@@ -72,9 +113,15 @@ export default function useListings(){
 
     return {
         listings,
+        revenue,
+        claimRevenue,
         listingsLoading,
+        revenueLoading,
         listingsStatus,
+        revenueStatus,
+        fetchRevenue,
         resetListingsStatus,
+        resetRevenueStatus,
         purchaseMeter,
         listNewMeter
     }

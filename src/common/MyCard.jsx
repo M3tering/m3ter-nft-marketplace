@@ -63,7 +63,7 @@ function MyCard(props) {
 
 MyCard.propTypes = {
     className: PropTypes.string,
-    id: PropTypes.number,
+    id: PropTypes.any,
     artClass: PropTypes.any,
     img: PropTypes.any,
     price: PropTypes.any,

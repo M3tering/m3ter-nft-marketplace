@@ -1,14 +1,29 @@
 import { M3terHead, m3terAlias } from "m3ters";
 import "../CSS/styles.css";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import Web3Context from "../contexts/Web3Context";
+import useListings from "../web3/hooks/useListings";
+import Loader from "../components/Loader";
 
 function PageTitle() {
   const {account} = useContext(Web3Context)
+  let {listings, claimRevenue, fetchRevenue, revenue, revenueLoading, revenueStatus} = useListings()
 
   async function copyAddress(){
     navigator.clipboard.writeText(account)
   }
+
+  async function handleClaimRevenue(){
+    await claimRevenue()
+    fetchRevenue(account)
+  }
+
+
+  useEffect(()=>{
+    if(listings && listings.length > 0){
+      fetchRevenue(account)
+    }
+  }, [account, listings])
 
   return (
     <div className="page-title-overlap bg-accent pt-4">
@@ -37,25 +52,27 @@ function PageTitle() {
           </div>
         </div>
         <div className="my-sm-0 my-3 text-sm-end pt-1">
-          <div className="d-flex align-items-center text-nowrap fs-sm">
-            <div className="mb-2 me-sm-3 me-2 text-muted">
-              <span className="fw-medium text-light">766</span>{" "}
-              <span className="text-white opacity-70">followers</span>
-            </div>
-            <div className="mb-2 ps-sm-3 ps-2 border-start border-light text-muted">
-              <span className="fw-medium text-light">2K</span>{" "}
-              <span className="text-white opacity-70">following</span>
-            </div>
-          </div>
-          <a className="text-light" href="#empty">
-            0x1dDB2C08s97...9Ecd
-            <i
-              className="ci-copy ms-2 fs-sm"
-              data-bs-toggle="tooltip"
-              data-bs-placement="top"
-              title="Copy"
-            ></i>
-          </a>
+            {
+              revenueLoading
+              ?
+              <div>
+                <Loader color="white" />
+              </div>
+              :
+              revenueStatus.error
+              ?
+              <div>
+                {revenueStatus.message}
+              </div>
+              :
+              <div className="d-flex text-light align-items-center text-nowrap fs-sm">
+                Revenue: {revenue} SETH
+              </div>
+            }
+          <button disabled={revenueLoading} onClick={handleClaimRevenue}>
+            {revenueLoading && <Loader />}
+            Claim Revenue
+          </button>
         </div>
       </div>
     </div>
