@@ -10,20 +10,34 @@ import Web3Context from "../contexts/Web3Context";
 
 function SigninBody() {
   let {account} = useContext(Web3Context)
-  let {listings, listingsLoading} = useListings()
+  let {listings, listingsLoading, removeMeter } = useListings()
   let myMeters = listings?.filter((meter)=>(meter[2].toLowerCase() == account.toLowerCase()))
 
   const CardElement = myMeters?.map((meter) => {
+    let index
+    listings?.forEach((mtr, i)=>{
+      if(mtr == meter)
+      index = i
+    })
     return (
-      <MyCard
-        className={"col mb-2 card h-10 border-0 shadow py-2 "}
-        artClass={"card h-100 border-0"}
-        key={meter.tokenId}
-        id={meter.tokenId}
-        img={meter.tokenId}
-        price={meter[1]}
-        lg={"../img/Switch/switch.jpg"}
-      />
+      <div key={meter.tokenId} className="mx-2">
+        <MyCard
+          className={"col mb-2 card h-10 border-0 shadow py-2 "}
+          artClass={"card h-100 border-0"}
+          id={meter.tokenId}
+          img={meter.tokenId}
+          price={meter[1]}
+          lg={"../img/Switch/switch.jpg"}
+        />
+        <button
+         disabled={listingsLoading} 
+         onClick={()=>{removeMeter(index); }} 
+         className="btn btn-danger"
+        >
+          {listingsLoading && <Loader />}
+          Remove Meter
+        </button>
+      </div>
     );
   });
   return (

@@ -21,8 +21,6 @@ export default function useListings(){
     let [revenueStatus, setRevenueStatus] = useState(defaultStatus)
     let [listingsStatus, setListingsStatus] = useState(defaultStatus)
 
-    
-
 
     async function purchaseMeter(price, index){
         setListingsLoading(true)
@@ -99,6 +97,20 @@ export default function useListings(){
         }
     }
 
+    async function removeMeter(index){
+        try{
+            let listingContractWithSigner = await listingContract.connect(signer)
+            let result = await listingContractWithSigner.removeListing(index)
+            console.log(result)
+            fetchAllListing()
+            setListingsLoading(false)
+        }catch(err){
+            console.log(err.errorName, err.message)
+            setListingsStatus({error: true, success: false, message: err.errorName || err.message})
+            setListingsLoading(false)
+        }
+    }
+
     function resetListingsStatus(){
         setListingsStatus(defaultStatus)
     }
@@ -120,6 +132,7 @@ export default function useListings(){
         listingsStatus,
         revenueStatus,
         fetchRevenue,
+        removeMeter,
         resetListingsStatus,
         resetRevenueStatus,
         purchaseMeter,
