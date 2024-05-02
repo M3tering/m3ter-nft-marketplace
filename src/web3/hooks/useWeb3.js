@@ -42,16 +42,19 @@ export default function useWeb3(){
         }
       }
     
+    async function setGlobalProvider(){
+        let _provider = new ethers.providers.JsonRpcProvider("https://sepolia.drpc.org")
+            setRequireInstall(false)
+            if(!provider){
+                setProvider(_provider)
+            }
+    }
     useEffect(()=>{
         if(window == undefined && window.ethereum == undefined){
             setRequireInstall(true)
             return
         }else{
-            let _provider = new ethers.providers.Web3Provider(window.ethereum)
-            setRequireInstall(false)
-            if(!provider){
-                setProvider(_provider)
-            }
+            setGlobalProvider()
             getCurrentConnectedWallet()
             addWalletListener()
         }

@@ -1,14 +1,14 @@
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import useContracts from "./useContracts";
-import Web3Context from "../../contexts/Web3Context";
 import { ethers } from "ethers";
 import { useNavigate } from "react-router-dom";
 import { listingContractAddress } from "../../utils/constants";
+import useWeb3 from "./useWeb3";
 
 export default function useListings(){
     const navigate = useNavigate()
     let {listingContract, meterContract} = useContracts()
-    const {signer} = useContext(Web3Context)
+    const {signer, } = useWeb3()
 
     const defaultStatus = {error: false, success: false, message: ""}
 
@@ -121,7 +121,7 @@ export default function useListings(){
 
     useEffect(()=>{
         fetchAllListing()
-    }, [listingContract])
+    }, [listingContract, ])
 
     return {
         listings,
