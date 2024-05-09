@@ -6,7 +6,7 @@ import { useContext } from "react";
 import Web3Context from "../contexts/Web3Context";
 
 function SigninModal() {
-  let {account, connectWallet} = useContext(Web3Context)
+  let {account} = useContext(Web3Context)
   return (
     <BaseLayout navProp={{ style: { paddingBottom: "90px" } }}>
       {
@@ -14,7 +14,7 @@ function SigninModal() {
         ?
         <SigninBody />
         :
-        <ConnectWalletComponent connectWallet={connectWallet} />
+        <ConnectWalletComponent />
       }
       <BacktoTop />
     </BaseLayout>

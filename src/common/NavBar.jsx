@@ -7,9 +7,10 @@ import Button from "./Button";
 
 import { useContext } from "react";
 import Web3Context from "../contexts/Web3Context";
+import ConnectButton from "./ConnectBtn";
 
 function NavBar(props) {
-  const { requireInstall, account, networkStatus, connectWallet} = useContext(Web3Context)
+  const { requireInstall, account, networkStatus } = useContext(Web3Context)
   const short = account
     ? `${account?.substring(0, 5)}...${account?.substring(38)}`
     : "no account";
@@ -91,12 +92,7 @@ function NavBar(props) {
                 Install Metamask
               </Link>
             ) : (
-              <Link
-                onClick={connectWallet}
-                className="btn btn-sm btn-accent rounded-1 ms-lg-4 ms-2"
-              >
-                Connect Metamask
-              </Link>
+              <ConnectButton />
             )}
           </div>
           <div

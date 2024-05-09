@@ -39,8 +39,7 @@ function App() {
 ])
 
 let web3 = useWeb3()
-
-
+web3.createModal()
 
 return (
   <Web3Context.Provider value={web3}>
