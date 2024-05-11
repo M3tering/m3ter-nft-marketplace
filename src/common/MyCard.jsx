@@ -9,7 +9,7 @@ function MyCard(props) {
     <div className={props.className}>
       <article className={props.artClass}>
         <div className="card-img-top position-relative overflow-hidden">
-          <Link className="d-block" id="overlay-span" to="/marketplace/single-buy">
+          <Link className="d-block" id="overlay-span" to={`/marketplace/single-buy?id=${props.id}`}>
             {/*<img src={props.img} alt="Product" />*/}
             <M3terHead seed={props.img} size={200} />
           </Link>

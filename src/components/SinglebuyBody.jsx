@@ -2,6 +2,7 @@ import propTypes from "prop-types"
 import { useContext, useState } from "react";
 import "../CSS/styles.css";
 import MyCard from "../common/MyCard";
+import ConnectButton from "../common/ConnectBtn"
 import Avatar13 from "../img/nft/catalog/avatars/13.png";
 import SwitchLg from "../img/Switch/switch.jpg";
 import { Link } from "react-router-dom";
@@ -17,7 +18,7 @@ import Web3Context from "../contexts/Web3Context";
 //import Example from "../JSX/OrderModal"
 
 function SinglebuyBody({meter, index}) {
-  const { account, connectWallet } = useContext(Web3Context)
+  const { account } = useContext(Web3Context)
   const {purchaseMeter, listingsLoading, listingsStatus} = useListings()
   let formattedPrice = Number(meter?.price)
   let formattedPriceEth = formattedPrice / 10**18;
@@ -237,9 +238,7 @@ function SinglebuyBody({meter, index}) {
                           Purchase NFT
                         </button>
                         :
-                        <button className="btn btn-lg btn-accent d-block w-100" onClick={connectWallet}>
-                          Connect wallet
-                        </button>
+                        <ConnectButton />
                       }
                     </div>
                     {/* <!-- Product info--> */}
