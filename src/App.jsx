@@ -9,6 +9,7 @@ import MyItems from "./components/MyItems";
 import useWeb3 from "./web3/hooks/useWeb3";
 import Web3Context from "./contexts/Web3Context";
 import ListModal from "./pages/ListModal";
+import MainLayout from "./common/MainLayout";
 /*import MyCollections from "./JSX/MyCollections";
 import Notifications from "./components/Notifications";
 import Favorites from "./components/Favorites";
@@ -19,22 +20,32 @@ import ProjectDeveloper from "./pages/ProjectDeveloper";*/
 function App() {
   let router = createBrowserRouter([{
     path: "/",
-    element: <Home />
-  }, {
-    path: "/marketplace",
-    element: <MarketPlace />
-  },{
-    path: "/marketplace/single-buy",
-    element: <SingleBuy />
-  },{
-    path: "/account",
-    element: <SigninModal />
-  },{
-    path: "/new-meter",
-    element: <ListModal />
-  },{
-    path: "/my-items",
-    element: <MyItems />
+    element: <MainLayout />,
+    children: [
+      {
+        path: "/",
+        element: <Home />
+      },
+      {
+        path: "marketplace",
+        element: <MarketPlace />,
+        children: [
+          {
+            path: "single-buy",
+            element: <SingleBuy />
+          }
+        ]
+      },{
+        path: "account",
+        element: <SigninModal />
+      },{
+        path: "new-meter",
+        element: <ListModal />
+      },{
+        path: "my-items",
+        element: <MyItems />
+      }
+    ]
   }
 ])
 
@@ -43,7 +54,7 @@ web3.createModal()
 
 return (
   <Web3Context.Provider value={web3}>
-      <RouterProvider router={router}  />
+      <RouterProvider router={router} />
   </Web3Context.Provider>
   );
 }
