@@ -10,6 +10,7 @@ import useWeb3 from "./web3/hooks/useWeb3";
 import Web3Context from "./contexts/Web3Context";
 import ListModal from "./pages/ListModal";
 import MainLayout from "./common/MainLayout";
+import MarketplaceLayout from "./common/MarketplaceLayout";
 /*import MyCollections from "./JSX/MyCollections";
 import Notifications from "./components/Notifications";
 import Favorites from "./components/Favorites";
@@ -27,9 +28,13 @@ function App() {
         element: <Home />
       },
       {
-        path: "marketplace",
-        element: <MarketPlace />,
+        path: "/marketplace",
+        element: <MarketplaceLayout />,
         children: [
+          {
+            path: "/marketplace",
+            element: <MarketPlace />
+          },
           {
             path: "single-buy",
             element: <SingleBuy />

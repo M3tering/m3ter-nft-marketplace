@@ -2,9 +2,12 @@ import PropTypes from "prop-types"
 import { M3terHead } from "m3ters"
 import { Link } from "react-router-dom";
 import Button from "./Button";
+import { useContext } from "react";
+import Web3Context from "../contexts/Web3Context";
 
 function MyCard(props) {
   let convertedPrice = Number(props.price) / 10**18
+  let {currency} = useContext(Web3Context)
   return (
     <div className={props.className}>
       <article className={props.artClass}>
@@ -36,7 +39,7 @@ function MyCard(props) {
           </h3>
           <span className="fs-sm text-muted">Reserve price:</span>
           <div className="d-flex align-items-center flex-wrap">
-            <h4 className="mt-1 mb-0 fs-base text-darker">{convertedPrice} SETH</h4>
+            <h4 className="mt-1 mb-0 fs-base text-darker">{convertedPrice} {currency}</h4>
             <span className="mt-1 ms-1 fs-xs text-muted">(≈ $ 2,400.65)</span>
           </div>
         </div>

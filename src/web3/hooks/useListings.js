@@ -14,6 +14,7 @@ export default function useListings(){
 
     let [listings, setListings] = useState([])
     let [revenue, setRevenue] = useState(null);
+    let [totalListings, setTotalListings] = useState(0)
 
     let [listingsLoading, setListingsLoading] = useState(false)
     let [revenueLoading, setRevenueLoading] = useState(false);
@@ -40,6 +41,7 @@ export default function useListings(){
         setListingsLoading(true)
         let priceWei = price * (10**18)
         let convertedPrice = ethers.BigNumber.from(priceWei.toString())
+
         console.log(priceWei, convertedPrice)
         try{
             let meterContractWithSigner = await meterContract.connect(signer)
@@ -65,7 +67,9 @@ export default function useListings(){
     async function fetchAllListing(){
         setListingsLoading(true)
         let all_listings = await listingContract?.getAllListing()
+        let total_listings = await listingContract?.totalListings()
         setListings(all_listings)
+        setTotalListings(total_listings)
         setListingsLoading(false)
     }
 
@@ -125,6 +129,7 @@ export default function useListings(){
 
     return {
         listings,
+        totalListings,
         revenue,
         claimRevenue,
         listingsLoading,

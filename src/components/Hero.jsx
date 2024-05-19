@@ -1,6 +1,6 @@
 import "../CSS/theme.min.css";
 import "../CSS/styles.css";
-import Nft1 from "../img/Switch/n1.jpg";
+import Nft1 from "/m3ter-heads.gif";
 import { Link } from "react-router-dom";
 
 function Hero() {
@@ -39,7 +39,7 @@ function Hero() {
                 {/* {/* <!-- Carousel item--> */}
                 <div className="px-2">
                   <img className="rounded-3" src={Nft1} alt="Product" />
-                  <div className="position-relative">
+                  {/*<div className="position-relative">
                     <div className="position-absolute start-0 bottom-0 w-100 p-md-5 p-sm-4 p-3">
                       <div className="pt-sm-0 pt-2 px-sm-4 px-2 bg-white rounded shadow">
                         <div className="row gx-5">
@@ -70,7 +70,7 @@ function Hero() {
                         </div>
                       </div>
                     </div>
-                  </div>
+                  </div>*/}
                 </div>
                 {/* <!-- Carousel item--> */}
 

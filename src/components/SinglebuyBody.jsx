@@ -18,7 +18,7 @@ import Web3Context from "../contexts/Web3Context";
 //import Example from "../JSX/OrderModal"
 
 function SinglebuyBody({meter, index}) {
-  const { account } = useContext(Web3Context)
+  const { account, currency } = useContext(Web3Context)
   const {purchaseMeter, listingsLoading, listingsStatus} = useListings()
   let formattedPrice = Number(meter?.price)
   let formattedPriceEth = formattedPrice / 10**18;
@@ -174,7 +174,7 @@ function SinglebuyBody({meter, index}) {
                           <h3 className="h6 mb-2 fs-sm text-muted">
                             Current price
                           </h3>
-                          <h2 className="h3 mb-1">{formattedPriceEth} SETH</h2>
+                          <h2 className="h3 mb-1">{formattedPriceEth} {currency}</h2>
                           <span className="fs-sm text-muted">(≈ $ 795.48)</span>
                         </div>
                       </div>

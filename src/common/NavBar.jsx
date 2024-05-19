@@ -2,7 +2,7 @@ import PropTypes from "prop-types"
 import { Link } from "react-router-dom";
 import "../CSS/styles.css";
 import "../CSS/theme.min.css";
-//import navLogo from "../img/Switch/Switch Electric PNG croped.png";
+import navLogo from "/twitter-avatar.png"
 import Button from "./Button";
 
 import { useContext } from "react";
@@ -25,7 +25,7 @@ function NavBar(props) {
             className="navbar-brand d-none d-sm-block me-4 order-lg-1"
             to="/"
           >
-            <img src={"https://ar-io.net/yqorQUGDmMIyJvQALE1jG7Ne7NhoIlGXaGANsz9D6eY"} width="142" alt="Switch" className="switch-logo" />
+            <img src={navLogo} width="142" alt="Switch" className="switch-logo" />
           </Link>
           <Link className="navbar-brand d-sm-none me-2 order-lg-1" to="/">
             <img

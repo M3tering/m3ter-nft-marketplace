@@ -6,7 +6,7 @@ import useListings from "../web3/hooks/useListings";
 import Loader from "../components/Loader";
 
 function PageTitle() {
-  const {account} = useContext(Web3Context)
+  const {account, currency} = useContext(Web3Context)
   let {listings, claimRevenue, fetchRevenue, revenue, revenueLoading, revenueStatus} = useListings()
 
   async function copyAddress(){
@@ -66,7 +66,7 @@ function PageTitle() {
               </div>
               :
               <div className="d-flex text-light align-items-center text-nowrap fs-sm">
-                Revenue: {revenue} SETH
+                Revenue: {revenue} {currency}
               </div>
             }
           <button disabled={revenueLoading} onClick={handleClaimRevenue}>

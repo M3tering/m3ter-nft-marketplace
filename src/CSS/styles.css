@@ -54,17 +54,7 @@
   min-height: 20vh;
 }
 #overlay-span {
-  background-image: conic-gradient(
-    from 207.95deg at 50% 50%,
-    #2e2b23 -57.31deg,
-    #87354f 44.14deg,
-    #584525 78.21deg,
-    #885c00 123.94deg,
-    #dc8600 186.36deg,
-    #552d3a 249.2deg,
-    #880000 302.69deg,
-    #502c37 404.14deg
-  );
+  background-color: beige;
 }
 #header {
   background-color: #fff;

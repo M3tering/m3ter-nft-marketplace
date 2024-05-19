@@ -3,23 +3,50 @@ import { Dropdown } from "react-bootstrap";
 import MyCard from "../common/MyCard";
 
 import { Link } from "react-router-dom";
-import banner from "../img/Switch/n14.jpg"
 import lg from "../img/Switch/switch.jpg"
+import useListings from "../web3/hooks/useListings";
+import Loader from "./Loader";
+import PaginationTab from "./PaginationTab";
+import { useEffect, useState } from "react";
 
 function ToolBar() {
-  const nums = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16];
-  const CardElement = nums.map((num) => {
+  let {listings, listingsLoading, totalListings, listingsStatus} = useListings()
+  let [currentPage, setCurrentPage] = useState(1)
+  let itemsPerPage = 16
+  let [numOfPages, setNumOfPages] = useState(1)
+  let [pagesArr, setPagesArr] = useState([]);
+
+  const CardElement = listings?.map((meter, i) => {
     return (
       <MyCard
         className={"col mb-2"}
         artClass={"card h-100 border-0 shadow"}
-        key={num}
-        id={num}
-        img={banner}
+        key={`m3ter${i}`}
+        id={meter.tokenId}
+        img={meter.tokenId}
+        price={meter.price}
         lg={lg}
       />
     );
   });
+
+  function selectPage(page){
+    setCurrentPage(page)
+  }
+
+  useEffect(()=>{
+    let _no_of_pages = Math.ceil(totalListings / itemsPerPage)
+    setNumOfPages(_no_of_pages)
+  }, [totalListings, itemsPerPage])
+
+  useEffect(()=>{
+    let arr = []
+    for(let i = 0; i < numOfPages; i++){
+      arr.push(i+1)
+    }
+    setPagesArr(arr)
+  }, [numOfPages])
+
   return (
     <div id="toolbar">
       <div className="bg-accent pt-4 pb-5">
@@ -448,7 +475,21 @@ function ToolBar() {
         {/*<!-- Products grid--> */}
         <div className="row row-cols-lg-4 row-cols-md-3 row-cols-sm-2 row-cols-2 gy-sm-4 gy-3 pt-sm-3  gx-xl-4 gx-3 mx-0">
           {/*<!-- Product--> */}
-          {CardElement}
+          {
+            listingsLoading
+            ?
+            <div>
+              <Loader />
+            </div>
+            :
+            listingsStatus.error
+            ?
+            <div>
+              {listingsStatus.message}
+            </div>
+            :
+            CardElement
+          }
         </div>
         <hr className="mt-4 mb-3" />
         {/*<!-- Pagination--> */}
@@ -467,34 +508,17 @@ function ToolBar() {
             <li className="page-item d-sm-none">
               <span className="page-link page-link-static">1 / 5</span>
             </li>
-            <li
-              className="page-item active d-none d-sm-block"
-              aria-current="page"
-            >
-              <span className="page-link">
-                1<span className="visually-hidden">(current)</span>
-              </span>
-            </li>
-            <li className="page-item d-none d-sm-block">
-              <Link className="page-link" to="#">
-                2
-              </Link>
-            </li>
-            <li className="page-item d-none d-sm-block">
-              <Link className="page-link" to="#">
-                3
-              </Link>
-            </li>
-            <li className="page-item d-none d-sm-block">
-              <Link className="page-link" to="#">
-                4
-              </Link>
-            </li>
-            <li className="page-item d-none d-sm-block">
-              <Link className="page-link" to="#">
-                5
-              </Link>
-            </li>
+            {
+              listingsLoading
+              ?
+              <div>
+                <Loader />
+              </div>
+              :
+              pagesArr?.map((page, i)=>{
+                return <PaginationTab key={`tab${i}`} page={page} currentPage={currentPage} switchPage={selectPage} />
+              })
+            }
           </ul>
           <ul className="pagination">
             <li className="page-item">
