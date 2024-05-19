@@ -31,7 +31,7 @@ function RecentDrops() {
     <div className="recent">
       <section className="mx-xl-auto mx-n2 px-xl-auto px-1">
         <div className="d-flex align-items-center justify-content-between mb-sm-3 mb-2">
-          <h2 className="h3 mb-0 mx-5">Recently Projects </h2>
+          <h2 className="h3 mb-0 mx-5">Recent Projects </h2>
           <Link
             className="btn btn-outline-accent ms-3"
             to="/marketplace"
