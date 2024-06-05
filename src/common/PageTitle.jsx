@@ -61,7 +61,7 @@ function PageTitle() {
               :
               revenueStatus.error
               ?
-              <div>
+              <div style={{color: "red"}}>
                 {revenueStatus.message}
               </div>
               :

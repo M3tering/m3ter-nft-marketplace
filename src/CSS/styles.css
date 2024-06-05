@@ -53,6 +53,30 @@
   padding: 30px;
   min-height: 20vh;
 }
+.modal-style{
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  background-color: black;
+  align-items: center;
+  opacity: 0.95;
+  justify-content: center;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+}
+.list-form-wrapper{
+  background-color: white;
+  border-radius: 10px;
+  padding: 10px;
+}
+.list-form-inputs-wrap{
+  padding: 10px 0 10px 0;
+}
+.list-form-button-wrap{
+  display: flex;
+  justify-content: space-evenly;
+}
 #overlay-span {
   background-color: beige;
 }

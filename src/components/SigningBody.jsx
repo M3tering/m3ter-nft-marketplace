@@ -20,7 +20,7 @@ function SigninBody() {
       index = i
     })
     return (
-      <div key={meter.tokenId} className="mx-2">
+      <div key={meter.tokenId} className="w-25">
         <MyCard
           className={"col mb-2 card h-10 border-0 shadow py-2 "}
           artClass={"card h-100 border-0"}
@@ -45,14 +45,14 @@ function SigninBody() {
       <PageTitle />
       <div className="container mb-5 pb-3">
         <div className="bg-light px-4 shadow-lg rounded-3 overflow-hidden">
-          <div className="row">
+          <div>
             {/* <!-- Sidebar--> */}
                 {/*<SideBar />*/}
             {/* <!-- Content--> */}
-            <section className="col-lg-9 pt-lg-4 pb-4 mb-3">
+            <section className="pt-lg-4 pb-4 mb-3">
               <div className="pt-2 px-4 ps-lg-0 pe-xl-5">
                 <h1 className="h3 mb-4 pb-2 text-sm-start text-center">
-                  My Items
+                  My items for sale
                 </h1>
                 {/* <!-- Items grid--> */}
                 {
@@ -66,7 +66,7 @@ function SigninBody() {
                     <Loader />
                   </div>
                   :
-                  <div className="row row-cols-md-3 row-cols-sm-2 row-cols-1 gy-sm-4 gy-3 gx-3 mb-4">
+                  <div className="d-flex justify-content-evenly mb-4">
                     {/* <!-- Product--> */}
                     {CardElement}
                   </div>

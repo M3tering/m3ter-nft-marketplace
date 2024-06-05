@@ -6,7 +6,7 @@ const projectId = "df7d214d4156a88d723cfde8d481c616"
 const network = {
     chainId: 11155111,
     name: 'Sepolia',
-    currency: 'ETH',
+    currency: 'xDAI',
     rpcUrl: 'https://rpc2.sepolia.org'
 }
 

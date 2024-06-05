@@ -4,6 +4,7 @@ import { ethers } from "ethers";
 import { useNavigate } from "react-router-dom";
 import { listingContractAddress } from "../../utils/constants";
 import useWeb3 from "./useWeb3";
+import { seiveErrorMsg } from "../../utils/errors";
 
 export default function useListings(){
     const navigate = useNavigate()
@@ -32,8 +33,9 @@ export default function useListings(){
             navigate("/account")
             setListingsLoading(false)
         }catch(err){
+            let errmsg = seiveErrorMsg(err.message)
             setListingsLoading(false)
-            setListingsStatus({error: true, success: false, message: err.errorName || err.message}) 
+            setListingsStatus({error: true, success: false, message: errmsg}) 
         }
     }
 
@@ -50,17 +52,17 @@ export default function useListings(){
             
             if(approvalAddress != listingContractAddress){
                 let approveResult = await meterContractWithSigner.approve(listingContractAddress, tokenId)
-                console.log("approve result",approveResult)
+                await approveResult.wait()
             }
             
             let result = await listingContractWithSigner.createListing(tokenId, convertedPrice)
-            console.log("listingResult", result)
+            await result.wait()
             fetchAllListing()
             navigate("/account")
         }catch(err){
-            console.log("error", err)
+            let errmsg = seiveErrorMsg(err.message)
             setListingsLoading(false)
-            setListingsStatus({error: true, success: false, message: err.errorName || err.message})
+            setListingsStatus({error: true, success: false, message: errmsg})
         }
     }
     
@@ -81,22 +83,27 @@ export default function useListings(){
             setRevenue(Number(revenue) / 10**18)
             setRevenueLoading(false)
         }catch(err){
-            console.log(err)
-            setRevenueStatus({error: true, success: false, message: err.errorName || err.message})
+            let errmsg = seiveErrorMsg(err.message)
+            setRevenueStatus({error: true, success: false, message: errmsg})
             setRevenueLoading(false)
         }
     }
 
     async function claimRevenue(){
         setRevenueLoading(true)
+        if(revenue == 0){
+            setRevenueLoading(false)
+            setRevenueStatus({error: true, success: false, message: "you don't have enough balance"})
+            return
+        }
         try{
             let listingContractWithSigner = await listingContract.connect(signer)
-            let result = await listingContractWithSigner.withdrawRevenue()
-            console.log(result);
+            await listingContractWithSigner.withdrawRevenue()
             setRevenueLoading(false)
         }catch(err){
-            console.log(err.errorName, err.message)
-            setRevenueStatus({error: true, success: false, message: err.errorName || err.message})
+            let errmsg = seiveErrorMsg(err.message)
+            console.log("err", err, "err.message", err.message, "errmsg", errmsg)
+            setRevenueStatus({error: true, success: false, message: errmsg})
             setRevenueLoading(false)
         }
     }
@@ -105,12 +112,12 @@ export default function useListings(){
         try{
             let listingContractWithSigner = await listingContract.connect(signer)
             let result = await listingContractWithSigner.removeListing(index)
-            console.log(result)
+            await result.wait()
             fetchAllListing()
             setListingsLoading(false)
         }catch(err){
-            console.log(err.errorName, err.message)
-            setListingsStatus({error: true, success: false, message: err.errorName || err.message})
+            let errmsg = seiveErrorMsg(err.message)
+            setListingsStatus({error: true, success: false, message: errmsg})
             setListingsLoading(false)
         }
     }
